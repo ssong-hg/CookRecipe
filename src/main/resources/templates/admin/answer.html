@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="../../header.css">
+    <link rel="stylesheet" href="../../admin/member.css">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/> 
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		              <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>
+		            
+		            
+		         
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+ <section th:if = "${session.admin == null}">
+	     <div class="noBody" >
+	    	<h2>잘못된 접근 입니다</h2>
+	    </div>
+    </section>
+  
+  
+  <th:block th:if="${session.admin !=null}"> 		
+  	<div class = "admin_home">
+		<span><a class="admin_home" th:href="@{/admin/master}">관리자 홈</a></span>
+	</div>
+ 	<div>
+        <ul class="adminBtn">
+         	<li>
+         		<a th:href="@{/admin/member}">회원목록</a>
+         		<a th:href="@{/admin/list}">Q & A</a>
+         	</li>
+
+        </ul>
+    </div>
+	 <div class="table_div">
+       
+        <table border="1">
+            <thead class="table-dark QandA">
+            	<tr>
+                    <td colspan="7">관리자에게 보낸 메세지</td>
+                </tr>
+            </thead>
+             <tbody>
+                <tr>
+                    <th class="one">No.</th>
+                    <th class="two">ID</th>
+                    <th class="three">Title</th>
+                    <th class="four">Date</th>
+					<th class="four">답변</th>                
+                </tr>
+            </tbody>
+           <tfoot>
+                <tr th:each="question, loop : ${paging}">
+                    <td th:text="${question.questionNo}"></td>
+                    <td th:text="${question.memId.memId}"></td>
+                    <td>
+                        <a th:href="@{detail/}+${question.questionNo}" th:text="${question.title}"></a>
+                    </td>
+                    <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+	          		<td th:text="${question.answerList.size}"></td>
+	          	</tr>
+	        </tfoot>
+	    </table>
+		  <!--페이징 CSS-->
+
+	<!-- 페이징처리 시작 -->
+    <div class="list_number" th:if="${!paging.isEmpty()}"><!--paging.isEmpty:페이지존재여부(게시물있으면 false,없으면 true)-->
+    	<div class="list_n_menu">
+        	<ul class="pagination justify-content-center" style=" list-style: none; display: flex; align-items: baseline; justify-content: center;">
+           
+           <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+            <!-- !paging.hasPrevious - disabled : 이전페이지가 없으면 비활성화-->
+
+                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                <!--이전페이지 링크-->
+                    <span>이전</span>
+                </a>
+            </li>
+
+            <!--th:each :페이지 리스트 루프--> <!--#numbers.sequence(시작, 끝)-->
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            
+            th:if="${page >= paging.number-5 and page <= paging.number+5}"
+            
+            th:classappend="${page == paging.number} ? 'active'"
+            class="page-item">
+            <!--page == paging.number : 현재페이지와 같으면 active 적용-->
+
+                <a th:text="${page+1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+
+
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+            <!-- !paging.hasNext - disabled : 다음페이지 없으면 비활성화-->
+
+                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <!--다음페이지 링크-->
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    	</div> 
+    </div>
+	  </div>
+    <!-- 페이징처리 끝 -->
+	</th:block>
+	</body>
+	
+	<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+	
+	
+</html>

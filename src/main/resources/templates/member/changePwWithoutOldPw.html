@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8" />
+	<title>비밀번호 변경</title>
+	
+	<link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="member/changePw.css">
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>	
+	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  
+</head>
+
+
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		  			<th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		         
+		         </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+	
+	<div class="wrap" id="changePw">
+		<h2>비밀번호</h2>
+		<div>
+			<span>새 비밀번호</span><br>
+			<span class="constraint" style="color: gray;"> (8-16자리 영문 대/소문자, 숫자, 특수문자)</span><br>
+			<input id="inputNewPw" type="password"></input><br/><br/>
+			<span class="error e0" id="errPass" style="display: none;"></span>
+		</div>
+		<div>
+			<span>새 비밀번호 확인</span></br>
+			<input id="inputNewPw2" type="password"></input><br/><br/>
+			<span class="error e1" id="errCheckPass" style="display: none;"></span></br>
+				
+		    <button type="button" id="changePwBtn">비밀번호 변경</button><br><br>
+	    </div>
+    </div>
+    <div><input type ="hidden" id="member" th:value="${member.memId}" /></div>
+    
+</body>
+<script>
+    	var error = document.querySelectorAll('.error');
+		console.log(error);
+		
+		
+ 		var inputNewPw = document.getElementById('inputNewPw');
+ 		var inputNewPw2 = document.getElementById('inputNewPw2');
+ 		var member = document.getElementById('member');
+    
+    	var changePwBtn = document.getElementById('changePwBtn');
+    	
+    	changePwBtn.onclick = function(){
+    		
+    		if(inputNewPw.value == ''){
+    			alert('변경할 내용이 없습니다.');
+    			
+    		}else{
+    		console.log(member);
+	    		$.ajax({
+	    			url: '/changeWithoutOldPwCheck',
+	    			
+	    			data: {
+	    				inputNewPw: $('#inputNewPw').val(),
+	    				inputNewPw2: $('#inputNewPw2').val(),
+	    				member: $('#member').val()
+	    				
+	    			},
+	
+	    			success:
+	    				function(result){
+	    					
+	    					if(result == 'regex') {
+		    					alert('8-16자의 영문 대/소문자, 숫자, 특수문자를 사용하세요.');
+		    					
+		    				}else if(result == 'unequal'){					
+									alert('새 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+			
+							}else if(result == 'true') {
+		    					alert('비밀번호 변경 완료');
+		    					location.href = "/changePwSuccess";
+		    					
+		    				}else{
+		    					console.log("####result==null");
+		    				}
+	    					
+	    					
+		    					
+	    				},
+	    				
+	    			error: function( xhr ) {
+			    		 console.log( xhr );
+			    		 alert(xhr.status + ':' + xhr.statusText);
+	    			
+	    			}	
+	    				
+	    		})
+    		}
+    		
+    	}
+    </script>
+    
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+</html>        
+        

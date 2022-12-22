@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script src="/js/jQuery-2.1.4.min.js"></script>
+ <link rel="stylesheet" href="../header.css">
+ <link rel="stylesheet" href="../createCookRecipe/createform.css">
+ 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		           <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+	<div class="createForm">
+	<h2>레시피 만들기</h2>
+																									<!-- 중요 -->
+	<form id="create" action="success.html" th:action="@{/createrecipe/register}" th:object="${createCookRecipe}" method="POST" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td colspan="4">요리 이름<br/>
+					<input class="text t1" type="text" th:field="*{rcpNm}" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">메인 사진 등록<br/>
+					<input type="file" class="inputFile" id="inputFile0" />
+					<div class="inputFile0List inputList"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">요리 설명<br/>
+					<textarea class="text" type="text" name="menualText[0]"></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td class="right">요리방법</td>
+				<td class="right">	               
+					<input th:field="*{rcpWay2}" type="radio" value="볶기" th:text="@{볶기}" />
+					<input th:field="*{rcpWay2}" type="radio" value="굽기" th:text="@{굽기}" />
+					<input th:field="*{rcpWay2}" type="radio" value="끓이기" th:text="@{끓이기}" /><br>
+					<input th:field="*{rcpWay2}" type="radio" value="찌기" th:text="@{찌기}" />
+					<input th:field="*{rcpWay2}" type="radio" value="튀기기" th:text="@{튀기기}" />
+					<input th:field="*{rcpWay2}" type="radio" value="기타" th:text="@{기타}" />
+	               
+				</td>
+				
+				<td class="right" >요리종류</td>
+				<td>
+					<input th:field="*{rcpPat2}" type="radio" value="반찬" th:text="@{반찬}" />
+					<input th:field="*{rcpPat2}" type="radio" value="국&찌개" th:text="@{국&찌개}" />
+					<input th:field="*{rcpPat2}" type="radio" value="일품" th:text="@{일품}" /><br>
+					<input th:field="*{rcpPat2}" type="radio" value="밥" th:text="@{밥}" />
+					<input th:field="*{rcpPat2}" type="radio" value="후식" th:text="@{후식}" />
+					<input th:field="*{rcpPat2}" type="radio" value="기타" th:text="@{기타}" />
+				</td>
+			
+			</tr>
+			<tr>
+				<td colspan="4" >재료 상세<br/>
+				<textarea  class="text" th:field="*{rcpPartsDtls}"></textarea>
+				</td>
+			</tr>	 	
+			
+			
+			<tfoot id="menual">
+			<tr>
+				<td colspan="3">조리법 :
+					<textarea class="menualText" type="text" name="menualText[1]"></textarea>
+				</td>
+			
+				<td>파일 <br/>
+					<input type="file" class="inputFile" id="inputFile1" />
+					<div class="inputFile1List inputList"></div>
+				</td>
+			</tr>
+			</tfoot>
+						
+		</table>
+	</form>	
+			<div><input class="btn btn1" type='button'
+       			value='레시피 추가'
+      			 onclick='setInnerHTML()'/>
+      		</div>
+			<div>
+				<button class="btn btn2" type="submit" id="btnRegister">레시피 작성하기</button>
+				<button class="btn btn3" type="submit" id="btnList">리스트로 돌아가기</button>
+			</div>
+		
+	</div>
+	
+</body>
+
+<script >
+var index = 2;
+function setInnerHTML() {
+	 
+	  const element = document.getElementById('menual');
+	  element.innerHTML += '<tr><td colspan="3">조리법 :<textarea class="menualText" type="text" name="menualText['+index+']"></textarea></td><td>파일 <br/><input type="file" class="inputFile" id="inputFile'+index+'" /><div class="inputFile'+index+'List inputList"></div></td></tr>';
+	  index = index + 1;
+	} 
+</script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var formObj = $("#create");
+	
+	$("#btnRegister").on("click", function() {
+		formObj.attr("action", "/createrecipe/register");
+		formObj.attr("method", "post");
+		formObj.submit();
+	});
+
+	$("#btnList").on("click", function() {
+		self.location = "/createrecipe/createcookrecipe";
+	});
+	
+	
+	
+	$(document).on("click", "span", function(event){
+		$(this).parent("div").remove();
+	});
+		
+	function getOriginalName(fileName){
+		if(checkImageType(fileName)){
+			return;
+		}
+		
+		var idx = fileName.indexOf("_") + 1 ;
+		
+		return fileName.substr(idx);
+	}
+	
+	function getThumbnailName(fileName){
+		var front = fileName.substr(0,12);
+		var end = fileName.substr(12);
+		
+		console.log("front : " + front);
+		console.log("end : " + end);
+		
+		return front + "s_" + end;
+	}
+	
+	function checkImageType(fileName){
+		var pattern = /jpg|gif|png|jpeg/i;
+		
+		return fileName.match(pattern);
+	}
+	
+	$("#create").submit(function(event){
+		event.preventDefault();
+		
+		var that = $(this);
+		
+		var str ="";
+		$(".inputList a").each(function(index){	
+			console.log("index"+index);
+			 var value = $(this).attr("href");
+			 value = value.substr(27);
+		
+			 str += "<input type='hidden' name='files["+index+"]' value='"+ value +"'> ";
+		});
+		
+		console.log("str = " + str);
+		
+		that.append(str);
+
+		that.get(0).submit();
+		console.log(that.get(0));
+	});
+	
+	$(document).on("change", ".inputFile",  function(event){
+		console.log(event.target);
+		var inputfile = event.target;
+		
+		var files = event.target.files;
+		
+		var file = files[0];
+
+		console.log(file);
+		
+		var formData = new FormData();
+		
+		formData.append("file", file);
+		console.log("file",file);
+		$.ajax({
+			url: "/createrecipe/uploadAjax",
+			data: formData,
+			dataType:"text",
+			processData: false,
+			contentType: false,
+			type: "POST",
+			success: function(data){
+				console.log(data);
+				console.log("2");
+				var str ="";
+			  
+				if(checkImageType(data)){
+					str = "<div><a href='/createrecipe/displayFile?fileName="+ data+"'>"+"<img src='/createrecipe/displayFile?fileName="+getThumbnailName(data)+"'/>"+"</a><span>X</span></div>";
+				}
+				else{
+					str = "<div><a href='/createrecipe/displayFile?fileName="+data+"'>"+getOriginalName(data)+"</a><span>X</span></div>";
+				}
+			  	var List = inputfile.id+"List";
+				$("."+List).append(str);
+				console.log(inputfile.id+"List");
+			}
+		});
+	});
+		
+});
+</script>
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+  
+   <link rel="stylesheet" href="../header.css">
+ 	<link rel="stylesheet" href="../question/questionForm.css">
+     
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/> 
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    
+</head> 
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		            <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+<div class="container">
+    <h2>질문 등록 하기</h2>
+    <form th:action="@{/question/create}" th:object="${questionForm}" method="post">
+		<div class="input">
+            <label for="title" class="form-label">제목</label><br/>
+            <input type="text" th:field="*{title}" class="form-control">
+        </div>
+        <div class="input">
+            <label for="content" class="form-label">내용</label><br/>
+            <textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+        </div>
+        <button type="submit"  class="btn btn-primary">저장하기 </button>
+    </form>
+</div>
+</body>
+
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+</html>

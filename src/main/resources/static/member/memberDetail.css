@@ -1,0 +1,58 @@
+@charset "UTF-8";
+/* font-family: 'Dongle', sans-serif; */
+
+.form_main{
+	font-family: 'Dongle', sans-serif;
+	width: 750px; 
+	margin:10px auto;
+	
+}
+
+.form_main h3{
+	font-size: 100px;
+	text-align: center;
+	top : 100px;
+}
+
+.form_main .table ul{
+	text-align: center;
+	font-size: 60px;
+}
+
+.form_main .table .pw{
+	font-size: 50px;
+	margin-top:20px;
+	height: 300px;
+}
+.chengeBtn{
+	display:inline-block;
+	padding:0px 20px;
+	height: 50px;
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	background-color: red;
+	color:white;
+	border: 0px;
+}
+.chengeBtn:hover{
+	border : 1px solid black;
+}
+
+.form_main .table .nick{
+	font-size: 50px;
+	margin-top:20px;
+	height: 150px;
+}
+
+.form_main .table .tell{
+	font-size: 50px;
+	margin-top:20px;
+	height: 150px;
+}
+
+.form_main .table .input{
+	width: 350px;
+	height: 45px;
+	font-size: 30px
+}
+

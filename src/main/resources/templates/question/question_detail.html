@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>home</title>
+  
+   <link rel="stylesheet" href="../../header.css">
+    <link rel="stylesheet" href="../../question/questionDetail.css">
+   
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		           <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+<div class="container my-3">
+<!--질문-->
+<th:block th:if="${question.boardNo == 2}">
+<h2> 자유 게시판</h2>
+</th:block> 
+<th:block th:if="${question.boardNo == 1}">
+<h2>관리자 게시판</h2>
+</th:block> 
+
+      <h3 class="border-bottom py-2" th:text="${question.title}"></h3>
+      <div class="writer">
+     	 <span>작성자 : [[${question.memId.nickName}]]</span>
+     	 <span >작성 일시 : [[${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}]]</span>
+      </div>
+    <div class="card my-3">
+    	<div class="card-body">
+      <div class="card-text" style="white-space: pre-line;" th:text="${question.content}"></div>
+   		 <div class="d-flex justify-content-end">
+   			 <div class="badge bg-light text-dark p-2 text-start">
+	   			   <div>
+  			   			<span th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></span>
+  			   		</div>
+  			   		<div>
+	  			   		<th:block th:if="${session.member != null}">
+	  			   			<th:block th:if="${question.memId.memId} == ${session.member.memId}">
+		      				<a th:href="@{|/question/modify/${question.questionNo}|}" class="btn btn-sm btn-outline-secondary"
+		              			>글 수정&ensp;</a>
+		              		<a th:value="${question.questionNo}" th:href="@{|/question/delete/${question.questionNo}|}"
+						        >글 삭제&ensp;</a>
+						    </th:block>    
+						 </th:block>    
+					    <a th:href="@{/question/list}">목록으로 돌아가기</a>    
+			   		</div>
+  			  </div>
+  		  </div>
+    	</div>
+    </div>
+
+<!--답변 반복 시작-->
+<div id="answer">
+     <div class="answer" th:each="answer : ${question.answerList}">
+    	<div class="answer-body">
+    		  <div class="answer-text" style="white-space: pre-line;" >[[${answer.content}]]</div>
+   				 <div class="d-flex justify-content-end">
+    				<div class="badge bg-light text-dark p-2 text-start">
+    				  
+    				  <div class="writer">
+				     	 <span>작성자 : [[${answer.memId.nickName}]]&ensp;</span>
+				     	 <span>작성 일시 : [[${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}]]</span>
+				      </div>
+				       <div class="my-3">
+				       		<th:block th:if="${answer.memId.memId} == ${session.member.memId}">
+				          	  	<a th:href="@{|/answer/modify/${answer.answerNo}|}" 
+				          	  	class="btn btn-sm btn-outline-secondary">댓글 수정&ensp;</a>
+								<a type="button" id="answerDelite" 
+								th:href="@{|/answer/delete/${answer.answerNo}|}">댓글 삭제</a>
+							</th:block> 	
+				        </div>
+    				</div>
+    			</div>
+    	</div>
+    </div>
+</div>
+<!--답변 반복 끝-->
+
+    <!--답변 작성-->
+    <th:block th:if="${question.boardNo == 2}">
+   <div class="createAnswer">
+	    <form th:action="@{|/answer/create/${question.questionNo}|}"
+	          th:object="${answerForm}" method="post" class="my-3">
+			 <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
+	   		 <input type="submit" value="답변등록" class="btn btn-primary my-2">
+	    	 
+	    </form>
+    </div>
+    </th:block>
+    
+</div>
+ 
+</body>
+
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+
+
+
+</html>

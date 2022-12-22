@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+
+.login{
+	font-family: 'Dongle', sans-serif;
+	position: relative;
+	text-align: center;
+	top: 150px;
+	max-width: 600px;
+    margin: 10px auto;
+    padding: 0 20px;
+   
+}
+
+.login h2{
+	font-size: 55px;
+}
+.login .btn{
+	margin-top:20px;
+}
+
+.login .btn a{
+	width: 300px;
+	height: 100px;
+	border: 0px;
+	font-family: 'Dongle', sans-serif;
+	font-size: 50px;
+	background-color: rgba(0,0,0,0);
+	
+	
+}

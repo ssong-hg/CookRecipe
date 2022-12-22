@@ -1,0 +1,46 @@
+
+@charset "UTF-8";
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+#changePw {
+	position: relative;
+	text-align: center;
+	top: 100px;
+	max-width: 600px;
+    margin: 10px auto;
+    padding: 0 20px;
+    
+    font-family: 'Dongle', sans-serif;
+    
+}
+
+#changePw h2{
+	font-size: 90px;
+	
+}
+#changePw div{
+	font-size: 60px;
+}
+
+#changePw div .constraint{
+	font-size: 50px;
+}
+
+#changePw div input{
+	height: 45px;
+	width: 400px;
+	font-size: 30px;
+	text-align: center;
+}
+
+#changePw button{
+	
+	height: 80px;
+	width: 200px;
+	border: 1px solid black;
+	font-family: 'Dongle', sans-serif;
+	font-size: 60px;
+	background-color: rgba(0,0,0,0);
+}

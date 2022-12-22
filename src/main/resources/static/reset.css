@@ -1,0 +1,38 @@
+@charset "UTF-8";
+/* 여백 초기화 */
+body, div, dl,dd,ul,li,ol,h1,h2,h3,h4,h5,h6,
+form,input,legend,textarea,select,fieldset,p,button{
+    margin: 0;padding: 0;
+}
+
+/* 링크 초기화 */
+a{color: #273743; text-decoration: none;}
+
+
+/* 폰트초기화 */
+body, input, textarea, select, button, table{
+    font-family: 'Noto Sans KR',"나눔 고딕","Nanum Gothic",
+    "Malgun Gothic", "맑은 고딕","돋움",Dotum,sans-serif;
+    font-size: 12px;/* default 16px */}
+/* 제목스타일 초기화 */
+h1,h2,h3,h4,h5,h6{
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* 블릿 기호 */
+ol,ul,li{list-style:none;}
+
+/* ir 효과(웹 접근성) */
+.ir{width: 0;height: 0;
+font-size: 0; line-height: 0; position:absolute;
+left: 0%; top: 0%;}
+
+/* 폰트 굵기 초기화 */
+strong{font-weight: normal;}
+
+/* 이테릭체 초기화 */
+em, address{font-style: normal;}
+
+
+

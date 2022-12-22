@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="header.css">
+	<link rel="stylesheet" href="search/category.css">
+	<link rel="stylesheet" href="search/search.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	
+	<title>search</title>
+</head>
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		          <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+	<div class="category" th:if="${search == 'rcpWay2'}">
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{볶기}" >
+				<button type="submit"><img src="search/panfry.gif" alt="이미지"></button><br>
+				<li>볶기</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{굽기}" >
+				<button type="submit"><img src="search/bbq.gif" alt="이미지"></button><br>
+				<li>굽기</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{끓이기}" >
+				<button type="submit"><img src="search/boil.gif" alt="이미지"></button><br>
+				<li>끓이기</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{찌기}" >
+				<button type="submit"><img src="search/steamer.gif" alt="이미지"></button><br>
+				<li>찌기</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{튀기기}" >
+				<button type="submit"><img src="search/saucepan.gif" alt="이미지"></button><br>
+				<li>튀기기</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{기타}" >
+				<button type="submit"><img src="search/guitar.gif" alt="이미지"></button><br>
+				<li>기타</li>
+			</div>
+		</form>
+	</div><!-- 요리방법 -->
+	<div class="category" th:if="${search == 'rcpPat2'}">
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{반찬}" >
+				<button type="submit"><img src="search/sidedish.gif" alt="이미지"></button><br>
+				<li>반찬</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{국&찌개}" >
+				<button type="submit"><img src="search/soup.gif" alt="이미지"></button><br>
+				<li>국&찌개</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{일품}" >
+				<button type="submit"><img src="search/trolley.gif" alt="이미지"></button><br>
+				<li>일품</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{밥}" >
+				<button type="submit"><img src="search/rice.gif" alt="이미지"></button><br>
+				<li>밥</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{후식}" >
+				<button type="submit"><img src="search/cake.gif" alt="이미지"></button><br>
+				<li>후식</li>
+			</div>
+		</form>
+		<form action="/category" method="get">
+			<div>
+				<input type="hidden" name="category" th:value="@{기타}" >
+				<button type="submit"><img src="search/guitar.gif" alt="이미지"></button><br>
+				<li>기타</li>
+			</div>
+		</form>
+	</div><!-- 요리분류 -->
+	<div id="category" th:if="${search == 'rcpPartsDtls'}">
+		<div class="category2">
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{meat}" >
+					<button type="submit"><img src="search/chicken.gif" alt="이미지"></button><br>
+					<li>육류</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{seaFood}" >
+					<button type="submit"><img src="search/shrimp.gif" alt="이미지"></button><br>
+					<li>해물</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{vegetables}" >
+					<button type="submit"><img src="search/carrot.gif" alt="이미지"></button><br>
+					<li>채소</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{eggsAndMilks}" >
+					<button type="submit"><img src="search/egg.gif" alt="이미지"></button><br>
+					<li>계란/유제품</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{processedFood}" >
+					<button type="submit"><img src="search/ham.gif" alt="이미지"></button><br>
+					<li>가공식품</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{fruit}" >
+					<button type="submit"><img src="search/apple.gif" alt="이미지"></button><br>
+					<li>과일</li>
+				</div>
+			</form>
+		</div>
+		<div class="category2">
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{nuts}" >
+					<button type="submit"><img src="search/nut.gif" alt="이미지"></button><br>
+					<li>견과류</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{corn}" >
+					<button type="submit"><img src="search/corn.gif" alt="이미지"></button><br>
+					<li>곡류</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{wheat}" >
+					<button type="submit"><img src="search/wheat.gif" alt="이미지"></button><br>
+					<li>밀가루</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{stockFish}" >
+					<button type="submit"><img src="search/sea.gif" alt="이미지"></button><br>
+					<li>건어물</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{mushroom}" >
+					<button type="submit"><img src="search/mushroom.gif" alt="이미지"></button><br>
+					<li>버섯</li>
+				</div>
+			</form>
+			<form action="/category2" method="get">
+				<div>
+					<input type="hidden" name="category" th:value="@{etc}" >
+					<button type="submit"><img src="search/guitar.gif" alt="이미지"></button><br>
+					<li>기타</li>
+				</div>
+			</form>
+		</div>
+	</div><!-- 요리재료 -->
+
+   
+	    
+
+	
+</body>
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+</html>

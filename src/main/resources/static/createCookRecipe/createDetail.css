@@ -1,0 +1,138 @@
+@charset "UTF-8";
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+.table {
+	
+	
+	position: relative;
+	text-align: center;
+	top: 20px;
+	width: 800px;
+    margin: 10px auto;
+    padding: 0 20px;
+}
+.tableImg{
+	width: 800px;
+}
+.table table{
+	font-family: 'Dongle', sans-serif;
+	font-size:44px;
+}
+table thead:first-child{
+	font-size: 50px;
+}
+
+table thead tr:nth-child(4) {
+	font-size:50px;
+	
+}
+table thead tr:nth-child(4) th{
+	border: 1px solid black;
+}
+table thead tr:nth-child(5) {
+	font-size:35px;
+	border-bottom: 1px solid black;
+}
+table tbody tr td{
+	border: 1px solid black;
+}
+table tbody tr:first-child td{
+	font-size: 60px;
+}
+table tbody tr:nth-child(2) td{
+	display:none;	
+}
+table tbody tr:nth-child(3) td{
+	display:none;	
+}
+table tbody tr:nth-child(4) td{
+	display:none;	
+}
+
+.returnBtn{
+	position: relative;
+	font-family: 'Dongle', sans-serif;
+	font-size: 50px;
+	
+}
+
+.badge{
+	font-size: 30px;
+	display:flex;
+	justify-content: space-between;
+    flex-direction: row;
+}
+.badge a{
+	position:relative;	
+	padding: 0px;
+	top: 0px;
+}
+.coment-text{
+	font-size: 30px;
+	text-align:left;
+	border:1px solid black;
+	height: auto;
+}
+
+#coment{
+	position:relative;
+	 margin: 10px auto;
+	text-align:center;
+	top:30px;
+	width: 640px;
+	font-family: 'Dongle', sans-serif;
+}
+#coment h3{
+	font-size: 50px;
+}
+.createComent{
+	position: relative;
+	top:30px;
+	margin-bottom: 100px;
+	text-align:center;
+}
+.createComent textarea{
+	width: 640px;
+	height: 200px;
+	font-size: 40px;
+}
+.createComent input{
+	font-family: 'Dongle', sans-serif;
+	font-size: 50px;
+	background-color: red;
+	border:0px;
+	color:#fff;
+	border-radius: 5px;
+}
+
+.starAndWish button{
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.starAndWish .starScore{
+	width: 150px;
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	border:0px;
+	background-color: red;
+	color:#fff;
+}
+#star{
+	display:flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+#wishList button{
+	position:relative;
+	right:-100px;
+	width: 150px;
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	text-align: center;
+	border:0px;
+	background-color: red;
+	color:#fff;
+}

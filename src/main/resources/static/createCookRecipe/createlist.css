@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+#createList{
+	position: relative;
+	text-align: center;
+	top: 50px;
+	max-width: 600px;
+    margin: 10px auto;
+    padding: 0 20px;
+   
+	
+}
+.sub{
+	display:flex;
+	justify-content: space-between;
+}
+.wishListBtn button{
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.wishList{
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	color:#fff;
+	background-color: red;
+	border:0px;
+}
+#w1{
+	
+	background-color: gray;
+}
+ #createList h2{
+	font-family: 'Dongle', sans-serif;
+	font-size: 90px;
+}
+#createList .createBtn{
+	font-family: 'Dongle', sans-serif;
+	font-size: 35px;
+	
+	display:flex;
+	justify-content: flex-end;
+}
+
+ #createList .table{
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	margin: 10px auto;
+	border:1px;
+	width: 600px;
+}
+
+.title{
+	background-color: pink;
+	
+}
+.table ul li{
+	font-family: 'Dongle', sans-serif;
+	font-size: 44px;
+}
+.table .text{
+	background-color: gray;
+	 text-align:center;
+	 display:flex;
+	 
+    flex-direction: row;
+    justify-content: space-around;
+}
+.table .text li:first-child{
+	float: left;
+}
+.table ul img{
+	width: 100%;
+	
+}
+.table ul li a{
+	padding :0;
+}
+h2{
+	position: relative;
+	text-align: center;
+	top: 30px;
+	font-family: 'Dongle', sans-serif;
+	font-size: 100px;
+}

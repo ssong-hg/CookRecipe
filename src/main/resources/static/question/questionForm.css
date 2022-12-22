@@ -1,0 +1,32 @@
+@charset "UTF-8";
+/* font-family: 'Dongle', sans-serif; */
+
+.container{
+	position:relative;
+	width: 800px;
+	text-align: center;
+	margin:10px auto;
+	font-family: 'Dongle', sans-serif;
+	
+}
+.container h2{
+	font-size: 60px;
+}
+.container .input{
+	font-size: 40px;
+}
+.container .input input{
+	height: 25px;
+	width: 350px;
+}
+.container .input textarea{
+	width: 350px;
+}
+.btn{
+	font-family: 'Dongle', sans-serif;
+	position:relative;
+	color:#fff;
+	font-size: 40px;
+	background-color: rgb(255, 0, 0);
+	border: 0px;
+}

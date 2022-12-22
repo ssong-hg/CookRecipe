@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+#findId {
+	position: relative;
+	text-align: center;
+	top: 100px;
+	max-width: 600px;
+    margin: 10px auto;
+    padding: 0 20px;
+    
+    font-family: 'Dongle', sans-serif;
+    
+}
+
+#findId h2{
+	font-size: 90px;
+	
+}
+#findId div{
+	font-size: 60px;
+}
+
+#findId div input{
+	height: 45px;
+	width: 400px;
+	font-size: 30px;
+	text-align: center;
+}
+
+#findId button{
+	
+	height: 80px;
+	width: 200px;
+	border: 1px solid black;
+	font-family: 'Dongle', sans-serif;
+	font-size: 60px;
+	background-color: rgba(0,0,0,0);
+}

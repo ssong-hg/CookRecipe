@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/* font-family: 'Dongle', sans-serif; */
+
+
+
+
+.container{
+	position:relative;
+	max-width: 640px;
+	text-align: center;
+	margin:10px auto;
+	font-family: 'Dongle', sans-serif;
+}
+
+.container h2{
+	font-size: 60px;
+	border-bottom: 1px solid black;
+}
+
+.container h3{
+	font-size: 45px;
+	border-bottom: 1px solid black;
+	text-align:left;
+	
+}
+.container .writer{
+	display:flex;
+	justify-content: space-between;
+	font-size: 30px;
+}
+
+.container .card-text{
+	font-size: 30px;
+	text-align:left;
+	border:1px solid black;
+	height: 300px;
+}
+.badge{
+	font-size: 30px;
+	display:flex;
+	justify-content: space-between;
+    flex-direction: row;
+}
+.badge a{
+	position:relative;	
+	padding: 0px;
+	top: 0px;
+}
+
+.answer-text{
+	font-size: 30px;
+	text-align:left;
+	border:1px solid black;
+	height: auto;
+}
+#answer{
+	position:relative;
+	top:30px;
+}
+
+.createAnswer{
+	position: relative;
+	top:30px;
+	
+}
+.createAnswer textarea{
+	width: 80%;
+	height: 60px;
+}
+
+
+

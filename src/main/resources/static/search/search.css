@@ -1,0 +1,161 @@
+@charset "UTF-8";
+/* font-family: 'Dongle', sans-serif; */
+
+body{
+	position: relative;
+}
+.search{
+	position: relative;
+	text-align: center;
+	top: 20px;
+	max-width: 488px;
+    margin: 10px auto;
+    padding: 0 20px;	
+}
+
+.search ul{
+	font-family: 'Dongle', sans-serif;
+	font-size: 50px;
+}
+.sub{
+	display:flex;
+	justify-content: space-between;
+}
+
+.table button{
+	border:0px;
+	background-color: red;
+	border-radius: 5px;
+}
+.table .wishList1 button{
+	border:0px;
+	background-color: gray;
+	border-radius: 5px;
+}
+
+
+.table button span{
+	font-family: 'Dongle', sans-serif;
+	font-size: 30px;
+	color:#fff;
+	
+}
+
+.search #search input{
+	width: 80%;
+    height: 56px;
+    border: 3px solid black;
+	
+	font-size: 25px;
+}
+.search #search  button{
+	width: 60px;
+    height: 60px;
+	background-color: rgb(255, 0, 0);
+	border-width: 0.5px;
+	
+}
+.wishListBtn button{
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.wishList{
+	font-family: 'Dongle', sans-serif;
+	font-size: 40px;
+	color:#fff;
+}
+#w1{
+	
+	background-color: gray;
+}
+
+
+.fa-search{
+	font-size:25px;
+}
+.search #searc  h button i{
+	position:relative;
+	color:#fff;
+	font-size: 30px;
+}
+
+.search #search  button:hover{
+	color: #fff;
+    background-color: red;
+    transition: 0.5s;
+    border: 1px solid #fff;
+}
+
+.table{
+	 border:1px;
+	 position: relative;
+	 text-align:center;
+	 margin: auto;
+     
+	  width: 800px; 
+	
+}
+.title{
+	background-color: pink;
+	
+}
+.table ul li{
+	font-family: 'Dongle', sans-serif;
+	font-size: 44px;
+}
+.table ul img{
+	width: 100%;
+	
+}
+.table ul li a{
+	padding :0;
+}
+.table .text{
+	background-color: gray;
+	 text-align:center;
+	 display:flex;
+	 
+    flex-direction: row;
+    justify-content: space-around;
+}
+.table .text li{
+	
+	
+}
+.table .text li:first-child{
+	float: left;
+	
+	
+}
+.selectBtn{
+	width: 800px;
+	text-align: center;
+	margin:10px auto;
+	font-family: 'Dongle', sans-serif;
+	display:flex;
+	
+    justify-content: space-around;
+}
+.selectBtn button{
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: 'Dongle', sans-serif;
+  font-size: 60px;
+  border:0px;
+  background-color: red;
+  color : #fff;
+  border-radius: 5px;
+}
+.selectBtn button a{
+	 color : #fff;
+}
+
+#myWishListDelete{
+	background-color: red;
+	border-radius: 6px;
+}
+
+
+

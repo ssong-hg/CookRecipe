@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+
+/* font-family: 'Dongle', sans-serif; */
+
+.container{
+	width: 800px;
+	text-align: center;
+	margin:10px auto;
+	font-family: 'Dongle', sans-serif;
+	
+}
+.container .table {
+	width: 100%;
+	border:1px solid black;
+	
+}
+
+.container .table thead{
+	background-color: gray;
+	font-family: 'Dongle', sans-serif;
+	font-size: 30px;
+	
+}
+.container .table thead tr th{
+	border:1px solid black;
+	
+}
+#tableNum{
+	width: 40px;
+}
+#tablewriter{
+	width: 100px;
+}
+#tableReview{
+	width: 50px;
+	font-size: 25px;
+}
+#tableTitle{
+	
+}
+#tableTime{
+	width: 150px;
+}
+.container .table tbody tr .review{
+	width: 50px;
+}
+
+.container .table tbody{
+	font-family: 'Dongle', sans-serif;
+	font-size: 25px;
+}
+#if{
+	text-align: right;
+	font-family: 'Dongle', sans-serif;
+	font-size: 30px;
+	
+}
+#if a{
+	background-color: red;
+	color:#fff;
+	border-radius: 5px;
+}
+
+.selectBtn{
+	width: 800px;
+	text-align: center;
+	margin:10px auto;
+	font-family: 'Dongle', sans-serif;
+	display:flex;
+	
+    justify-content: space-around;
+}
+.selectBtn button{
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-family: 'Dongle', sans-serif;
+  font-size: 60px;
+  border:0px;
+  background-color: red;
+  color : #fff;
+  border-radius: 5px;
+}
+.selectBtn button a{
+	 color : #fff;
+}

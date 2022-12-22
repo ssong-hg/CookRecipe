@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+
+/* font-family: 'Dongle', sans-serif; */
+
+
+
+.noBody {
+	position: relative;
+	text-align: center;
+	top: 20px;
+	max-width: 800px;
+    margin: 10px auto;
+    padding: 0 20px;
+	
+}
+.noBody h2{
+	font-family: 'Dongle', sans-serif;
+	font-size: 70px;
+}
+
+.admin_home{
+	position: relative;
+	text-align: center;
+
+	max-width: 800px;
+    margin: 10px auto;
+    padding: 0 20px;
+	
+}
+.admin_home span a{
+	font-family: 'Dongle', sans-serif;
+	font-size: 80px;
+}
+
+.adminBtn li{
+	font-family: 'Dongle', sans-serif;
+	font-size: 80px;
+	display:flex;
+	justify-content: space-evenly;
+	
+}
+.adminBtn li a{
+	background-color: red;
+	color:#fff;
+	border-radius: 10px;
+}

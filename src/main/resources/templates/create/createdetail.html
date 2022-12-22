@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+<title>asfasd</title>
+ <link rel="stylesheet" href="../../header.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/> 
+   <link rel="stylesheet" href="../../createCookRecipe/createDetail.css">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+ 
+</head>
+<style>
+	.star {font-size: 1.5em; color: #ddd;}
+    .checkStar {display: none;}
+    .yellowStar {color: yellow;}
+
+</style>
+
+<body bgcolor=#fffff3>
+	<header>
+		<div class= "menu">
+			<div id="nav">
+				<ul>
+					<br>
+		            <li class="menuBtn"><a th:href="@{/mypage}">MY PAGE</a></li><br>
+		            <li class="menuBtn"><a href="#">menu2</a></li><br>
+		            <li class="menuBtn"><a href="#">menu3</a></li><br>
+		            <li class="menuBtn"> <a  th:href="@{/createrecipe/createcookrecipe}">레시피 만들기</a></li><br>
+		            <li class="menuBtn"><a  th:href="@{/question/list}">자유게시판</a></li><br>
+		            
+		            <th:block th:if="${session.admin != null}">
+		            	<li class="menuBtn" ><a href="/admin/master">Admin</a></li>
+		            </th:block>
+		            
+		            <th:block th:if="${session.admin == null}">
+		            <li class="menuBtn"><a  th:href="@{/admin/create}">관리자에게 물어보기!</a></li><br>
+		            </th:block>		 
+		        </ul>
+		        <a href="#" id="navBtn"><i class="fas fa-bars"></i></a>
+			</div>
+        	
+    		<div id="logo">
+    			<a th:href="@{/main}"><h1>I'm chef</h1></a>
+    		</div> 
+    		
+    		<div id="login">
+    		    <ul>
+               		 <th:block th:if="${session.member == null}">
+        				<li><a class="logBtn" th:href="@{/login}">로그인</a></li>
+    				</th:block>
+    				<th:block th:if="${session.member != null}">
+        				<li class="loginId" ><a class="nickName" th:href="@{/mypage}">[[${session.member.nickName}]]</a><span>     ([[${session.member.grade.gradeName}]])님 환영합니다</span>
+				      		  <a class="logBtn" th:href="@{/logout}">로그아웃</a></li>
+    				</th:block>
+    			</ul>
+			</div>
+    		
+		</div>
+	</header>
+	<hr>
+<div class="table">
+	<table>
+		<thead>
+			<tr>
+                <th colspan="3">[[${createCookRecipe.rcpNm}]]</th>
+            </tr>
+            <tr class="starAndWish" colspan="3">  
+                	<th id="star" colspan="2">               
+						<label class="star" for="star1">★</label><input type="radio" class="checkStar" id="star1" value="1" name="selectstar">
+						<label class="star" for="star2">★</label><input type="radio" class="checkStar" id="star2" value="2" name="selectstar">
+						<label class="star" for="star3">★</label><input type="radio" class="checkStar" id="star3" value="3" name="selectstar">
+						<label class="star" for="star4">★</label><input type="radio" class="checkStar" id="star4" value="4" name="selectstar">
+						<label class="star" for="star5">★</label><input type="radio" class="checkStar" id="star5" value="5" name="selectstar">
+	 					<th:block th:if="${session.member == null}">
+	 						<button type="button" disabled="disabled" class="starScore">별주기<br>(로그인필요)</button>  
+ 						</th:block>  
+ 						<th:block th:if="${session.member != null}">
+	                    	<button type="button" class="starScore">별주기</button>  
+ 						</th:block>  
+				</th>
+                <th id="wishList" colspan="2">
+                	<th:block th:if="${session.member == null}" colspan="2">
+                   	<button type="button" disabled="disabled" th:value="${createCookRecipe.rcpSeq}" class="wishList" >찜하기<br>(로그인필요)</button>
+                   	</th:block>
+                   	<th:block th:if="${session.member != null}" colspan="2">
+                   	<button type="button" th:value="${createCookRecipe.rcpSeq}" class="wishList" >찜하기</button>
+                   	</th:block>
+                </th>
+            </tr>
+            <tr>
+	            <th colspan="3">
+	            	<img class="tableImg" th:src="@{/createrecipe/displayFile?f}+${createCookRecipe.menuals[0].fullName}" alt="첨부이미지" >
+	       		</th>
+            </tr>
+             <tr>
+	            <th colspan="3">
+	            	[[${createCookRecipe.menualTexts[0].menualText}]]
+	       		</th>
+            </tr>
+            <tr border="1">
+                    <th>조회수 : [[${createCookRecipe.readCount}]]</th>
+                    <th>조리 방법 : [[${createCookRecipe.rcpWay2}]]</th>
+                    <th>요리 종류 : [[${createCookRecipe.rcpPat2}]]</th>
+            </tr>
+            <tr>
+				<th colspan="3" >요리 재료</th>
+			</tr>
+			<tr>
+				<th colspan="3" >[[${createCookRecipe.rcpPartsDtls}]]</th>
+			</tr>          
+		</thead>
+		<tbody >
+            	<tr>
+                	<td colspan="3">조리 방법</td>
+                </tr>
+                <th:block th:each="menuals, img : ${createCookRecipe.menuals}" >
+                <tr th:each="menualText, text : ${createCookRecipe.menualTexts}" >
+                	<td colspan="2" align="left" th:if="${img.index==text.index && text.index!=0}" th:text="${menualText.menualText}"></td>
+                	<td>
+                		<img width="200" th:if="${img.index==text.index && img.index !=0}" th:src="@{/createrecipe/displayFile?f}+${menuals.fullName}" alt="첨부이미지" >
+                	</td>
+				</tr>
+				</th:block>
+			
+			</tbody>
+	</table>
+	<a type="button" class="returnBtn" th:href="@{/createrecipe/createcookrecipe}">레시피 목록으로 돌아가기</a>
+	    <hr>
+	</div>
+	
+	<!-- coment 시작 -->
+	<div id="coment">
+	<h3>댓글</h3>
+	<!--답변 반복 시작-->
+    <div class="coment" th:each="coment : ${createCookRecipe.comentList}">
+    	<div class="coment-body">
+    		  <div class="coment-text" style="white-space: pre-line;">[[${coment.content}]]</div>
+   				 <div class="d-flex justify-content-end">
+    				<div class="badge bg-light text-dark p-2 text-start">
+    				      				  
+    				
+					    
+           			    <div class="writer">
+           			    	<span>작성자 : [[${coment.memId.nickName}]]</span>
+           			    	<span>작성 일지 : [[${#temporals.format(coment.createDate, 'yyyy-MM-dd HH:mm')}]]</span>
+           			    </div> 
+           			    <div>
+           			    <div class="my-3">
+           			    
+           			    		<th:block th:if="${session.member != null}">	
+				          	  	<a th:href="@{|/coment/cmodify/${coment.comentNo}|}" class="btn btn-sm btn-outline-secondary"
+								>댓글 수정</a>
+								<a type="button" id="comentDelite" th:href="@{|/coment/cdelete/${coment.comentNo}|}"
+				                >댓글 삭제</a>
+				        </div>
+					    
+           			  </div>
+    			</div>
+    	</div>
+    	
+    </div><!--답변 반복 끝-->
+ </div>   
+ </div>
+    <hr>
+	
+	    <!--답변 작성-->
+	<div class="createComent">
+	    <form th:action="@{|/coment/ccreate/${createCookRecipe.rcpSeq}|}"
+	          th:object="${comentForm}" method="post">
+	          <th:block th:if="${session.member == null}">		
+        			<span> 댓글은 로그인 후 작성 가능합니다</span>					
+    			</th:block>
+			<th:block th:if="${session.member != null}">
+	        <textarea th:field="${comentForm.content}" rows="10" ></textarea><br>
+	   		 <input type="submit" value="댓글등록" />
+	   		
+	    </form>
+	</div>
+
+</body>
+<script>
+	var checkStar = document.querySelectorAll(".checkStar");
+	var star = document.querySelectorAll(".star");
+	var result;
+	
+	function color(event) {
+		const num = parseInt(event.target.value);
+		for(var i=0; i<checkStar.length; i++){
+			star[i].classList.remove("yellowStar");
+		}
+		for(var i=0; i<num; i++){
+	    	star[i].classList.add("yellowStar");
+		}
+	}			
+	for(var i=0; i<checkStar.length; i++){
+		checkStar[i].addEventListener("click", color);
+	}
+	var score = 0;
+	$(checkStar).on('click',function(){
+		result = $(this).val();
+		console.log("1 :"+result);
+		score=result;
+		console.log("2 :"+score);
+	})
+	var rcpSeq = document.getElementById('rcpSeq');
+	
+	$(document).on( 'click', '.starScore', function() {
+		
+		
+		console.log("3 :"+score);
+		$.ajax({
+			url:'/starscore',
+			dataType:'text',
+			type: 'GET',
+			
+			data:{
+				rcpSeq:$(".wishList").val(),
+				score: result
+			},
+			
+			success: function(result){
+				if(result == 'notNull'){
+					console.log("실패");
+					alert("이미 평가하셨습니다.");
+						
+				}else{
+					console.log("성공");
+					alert("감사합니다.");
+				}
+					
+			},
+			error: function (xhr) {
+				console.log("4 :"+xhr);
+				alert(xhr.status + ':' + xhr.statusText);
+			}
+		}) // $.ajax end
+	}); // starScore click end
+	
+
+</script>
+<script>
+
+
+	var rcpSeq = document.getElementById('rcpSeq');	
+	$(document).on( 'click', '.wishList', function() {
+		
+		console.log(event.target.value);
+		$.ajax({
+			url:'/wishlist',
+			dataType : 'text',
+			type:'GET',
+			data:{
+				rcpSeq:$(event.target).val()				
+			},
+			success: function (result){
+				if(result == 'notNull'){
+					console.log("실패");
+					alert("이미 찜 목록에 있습니다");
+					
+				}else{
+					console.log("성공");
+					alert("찜 목록에 추가되었습니다");
+				}
+				
+				
+			},
+			error: function (xhr) {
+				console.log(xhr);
+				alert(xhr.status + ':' + xhr.statusText);
+			}			
+		}) // $.ajax end
+	}); // wishlist click end
+
+
+</script>
+<script>
+	var nav= $('#nav ul li');
+	$('#navBtn').click(function()
+        {
+            $('#nav').toggleClass('menu');
+            if($('#nav').hasClass('menu'))
+            {
+            $('#nav').animate({left:'0'},400);
+            
+        }
+            else
+            {
+            $('#nav').animate({left:'-400px'},400);
+            
+            }
+        });
+</script>
+</html>
